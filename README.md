@@ -1,2 +1,2 @@
 # AI-MobileApp
-Laplands UAS course - Project: AI/Mobileapp. 
+Laplands UAS course - Project: AI/Mobileapp.. 
