@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
 
+import 'package:my_favorite_place/models/place.dart';
+
 class PlacesList extends StatelessWidget {
-  const PlacesList({Key? key}) : super(key: key);
+  const PlacesList({Key? key, required this.places}) : super(key: key);
+
+  final List<Place> places;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    if (places.isEmpty) {
+      return const Center(
+        child: Text('No places yet, start adding some!'),
+      );
+    }
+
+    return ListView.builder(
+      itemCount: places.length,
+      itemBuilder: (ctx, index) => ListTile(
+        title: Text(
+          places[index].title,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+        ),
+      ),
+    );
   }
 }

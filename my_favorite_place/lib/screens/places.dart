@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_favorite_place/widgets/places_list.dart';
 
 class PlacesListScreen extends StatelessWidget {
   const PlacesListScreen({Key? key}) : super(key: key);
@@ -16,8 +17,8 @@ class PlacesListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: PlacesList(
+        places: [],
       ),
     );
   }
