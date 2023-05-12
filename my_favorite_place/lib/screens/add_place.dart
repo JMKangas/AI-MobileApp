@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:my_favorite_place/providers/user_places.dart';
 import 'package:my_favorite_place/widgets/image_input.dart';
+import 'package:my_favorite_place/widgets/location_input.dart';
 
 class AddPlaceScreen extends ConsumerStatefulWidget {
   const AddPlaceScreen({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
             TextField(
               decoration: const InputDecoration(labelText: 'Title'),
               controller: _titleController,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onBackground,
                   ),
             ),
@@ -61,6 +62,8 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 _selectedImage = image,
               },
             ),
+            const SizedBox(height: 10),
+            LocationInput(),
             const SizedBox(height: 15),
             ElevatedButton(
               onPressed: _savePlace,
