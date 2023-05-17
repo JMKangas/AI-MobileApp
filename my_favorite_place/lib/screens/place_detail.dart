@@ -23,28 +23,35 @@ class PlaceDetailScreen extends StatelessWidget {
                 place.image,
                 fit: BoxFit.cover,
                 width: double.infinity,
+                height: double.infinity,
               ),
             ),
             Positioned(
-              bottom: 20,
+              bottom: 30,
               right: 55,
-              child: Container(
-                alignment: Alignment.center,
-                width: 300,
-                color: Colors.black54,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 5,
-                  horizontal: 30,
-                ),
-                child: Text(
-                  place.title,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                      ),
-                  softWrap: true,
-                  overflow: TextOverflow.fade,
-                  textAlign: TextAlign.center,
-                ),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: 300,
+                    color: Colors.black54,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 30,
+                    ),
+                    child: Text(
+                      place.location!.latitude.toStringAsFixed(2) +
+                          ', ' +
+                          place.location!.longitude.toStringAsFixed(2),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
