@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:my_favorite_place/models/place.dart';
+
 class LocationInput extends StatefulWidget {
-  const LocationInput({Key? key}) : super(key: key);
+  const LocationInput({Key? key, required this.onSelectLocation})
+      : super(key: key);
+
+  final void Function(PlaceLocation selectedLocation) onSelectLocation;
 
   @override
   _LocationInputState createState() {
@@ -14,17 +19,21 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
-  Location? _pickedLocation;
+  PlaceLocation? _pickedLocation;
+
   var _isGettingLocation = false;
-  late double longitude;
-  late double latitude;
+  late double longitude = 0.0;
+  late double latitude = 0.0;
 
   void _selectTempLocation() async {
     Location location = Location();
     LocationData locationData;
     locationData = await location.getLocation();
-    print(locationData.latitude);
-    print(locationData.longitude);
+    //print(locationData.latitude);
+    //print(locationData.longitude);
+
+    print(_pickedLocation?.latitude.toString());
+    print(_pickedLocation?.longitude.toString());
     setState(() {
       _isGettingLocation = true;
     });
@@ -32,9 +41,17 @@ class _LocationInputState extends State<LocationInput> {
     longitude = locationData.longitude!;
     latitude = locationData.latitude!;
 
+    /*  PlaceLocation pickedLocation = PlaceLocation(
+      latitude: locationData.latitude!,
+      longitude: locationData.longitude!,
+    );
+*/
     setState(() {
-      _isGettingLocation = false;
+      _pickedLocation = PlaceLocation(latitude: latitude, longitude: longitude);
+      //_isGettingLocation = false;
     });
+
+    widget.onSelectLocation(_pickedLocation!);
   }
 
   void _getCurrentLocation() async {
@@ -87,7 +104,8 @@ class _LocationInputState extends State<LocationInput> {
   @override
   Widget build(BuildContext context) {
     Widget previewContent = Text(
-      'No Location  asdasd Chosen ${longitude}',
+      'No Location Chosen',
+      //'No Location  asdasd Chosen ${longitude}'
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             color: Theme.of(context).colorScheme.primary,
           ),
@@ -99,18 +117,27 @@ class _LocationInputState extends State<LocationInput> {
         child: CircularProgressIndicator(),
       );
       previewContent = Text(
-        'Lat: 232323 , Lng: ${longitude}',
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-      );
-    } else if (longitude != null) {
-      previewContent = Text(
         'Lat: ${latitude}, Lng: ${longitude}',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: Theme.of(context).colorScheme.primary,
             ),
       );
+    } else if (longitude != null && latitude != null) {
+      //  previewContent = Text(
+      //  'Lat: ${latitude}, Lng: ${longitude}',
+      //Lat: ${latitude}, Lng: ${longitude},
+      // style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+      //     color: Theme.of(context).colorScheme.primary,
+      // ),
+      //   );
+    } else if (longitude != null) {
+      //  previewContent = Text(
+      //  'Lat: ${latitude}, Lng: ${longitude}',
+      //Lat: ${latitude}, Lng: ${longitude},
+      //  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+      //      color: Theme.of(context).colorScheme.primary,
+      //  ),
+      //  );
       /* previewContent = const Text(
         'Lat: 0.0, Lng: 0.0',
         style: TextStyle(
