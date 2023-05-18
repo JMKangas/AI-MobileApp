@@ -9,8 +9,6 @@ class PlaceDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final placeId = ModalRoute.of(context)?.settings.arguments as String;
-
     return Scaffold(
         appBar: AppBar(
           title: Text(place.title),
@@ -40,9 +38,7 @@ class PlaceDetailScreen extends StatelessWidget {
                       horizontal: 30,
                     ),
                     child: Text(
-                      place.location!.latitude.toStringAsFixed(2) +
-                          ', ' +
-                          place.location!.longitude.toStringAsFixed(2),
+                      '${place.location!.latitude.toStringAsFixed(2)}, ${place.location!.longitude.toStringAsFixed(2)}',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             color: Colors.white,
                           ),

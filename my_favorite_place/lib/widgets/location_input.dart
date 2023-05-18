@@ -1,5 +1,6 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, unused_import, library_private_types_in_public_api
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
@@ -29,11 +30,12 @@ class _LocationInputState extends State<LocationInput> {
     Location location = Location();
     LocationData locationData;
     locationData = await location.getLocation();
-    //print(locationData.latitude);
-    //print(locationData.longitude);
 
-    print(_pickedLocation?.latitude.toString());
-    print(_pickedLocation?.longitude.toString());
+    if (kDebugMode) {
+      print(_pickedLocation?.latitude.toString());
+      print(_pickedLocation?.longitude.toString());
+    }
+
     setState(() {
       _isGettingLocation = true;
     });
@@ -41,19 +43,14 @@ class _LocationInputState extends State<LocationInput> {
     longitude = locationData.longitude!;
     latitude = locationData.latitude!;
 
-    /*  PlaceLocation pickedLocation = PlaceLocation(
-      latitude: locationData.latitude!,
-      longitude: locationData.longitude!,
-    );
-*/
     setState(() {
       _pickedLocation = PlaceLocation(latitude: latitude, longitude: longitude);
-      //_isGettingLocation = false;
     });
 
     widget.onSelectLocation(_pickedLocation!);
   }
 
+/*
   void _getCurrentLocation() async {
     Location location = Location();
 
@@ -94,18 +91,13 @@ class _LocationInputState extends State<LocationInput> {
     setState(() {
       _isGettingLocation = false;
     });
-
-    //latitude = locationData.latitude!;
-    //longitude = locationData.longitude!;
-    print(locationData.latitude);
-    print(locationData.longitude);
   }
+*/
 
   @override
   Widget build(BuildContext context) {
     Widget previewContent = Text(
       'No Location Chosen',
-      //'No Location  asdasd Chosen ${longitude}'
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             color: Theme.of(context).colorScheme.primary,
           ),
@@ -117,41 +109,11 @@ class _LocationInputState extends State<LocationInput> {
         child: CircularProgressIndicator(),
       );
       previewContent = Text(
-        'Lat: ${latitude}, Lng: ${longitude}',
+        'Lat: $latitude, Lng: $longitude',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: Theme.of(context).colorScheme.primary,
             ),
       );
-    } else if (longitude != null && latitude != null) {
-      //  previewContent = Text(
-      //  'Lat: ${latitude}, Lng: ${longitude}',
-      //Lat: ${latitude}, Lng: ${longitude},
-      // style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-      //     color: Theme.of(context).colorScheme.primary,
-      // ),
-      //   );
-    } else if (longitude != null) {
-      //  previewContent = Text(
-      //  'Lat: ${latitude}, Lng: ${longitude}',
-      //Lat: ${latitude}, Lng: ${longitude},
-      //  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-      //      color: Theme.of(context).colorScheme.primary,
-      //  ),
-      //  );
-      /* previewContent = const Text(
-        'Lat: 0.0, Lng: 0.0',
-        style: TextStyle(
-          color: Colors.black54,
-        ),
-      ); */
-    } else {
-      /*    previewContent = Text(
-        'No Locationasdasd Chosen',
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-        textAlign: TextAlign.center,
-      ); */
     }
 
     return Column(children: [

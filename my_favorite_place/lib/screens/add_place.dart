@@ -1,7 +1,8 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:location/location.dart';
 import 'package:my_favorite_place/models/place.dart';
 
 import 'package:my_favorite_place/providers/user_places.dart';

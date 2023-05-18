@@ -14,7 +14,7 @@ class PlacesListScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Favorite Places'),
+        title: const Text('My Favorite Places'),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
